@@ -1,0 +1,32 @@
+# Secrets
+.env
+*.env
+!.env.example
+
+# API keys accidentally anywhere
+*api_key*
+*.key
+
+# Python environment
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Flask
+instance/
+.flaskenv
+venv/
+__pycache__/
