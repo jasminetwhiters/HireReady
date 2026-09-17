@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HireReady</title>
+</head>
+<body>
+    <h1 HireReady </h1>
+    <p>Paste your resume and a job posting below to see your fit score and skill gaps.</p>
+    <p>Lets make you hireReady.</p>
+
+    {% if error %}
+        <div class ="error">{{  error  }}</div>
+    {% endif %}
+
+    <form method = "POST">
+        <label for="resume_text">Your Resume</label>
+        <textarea id="resume_text" name="resume_text" placeholder="Paste your resume text here...">{{  resume_text  }}</textarea>
+    
+        <button type="submit">Analyze Fit</button>
+    </form>
+
+    {% if result %}
+        <hr style="margin: 30px 0;">
+        <div class ="score">{{  result.match.total_score  }}/100</div>
+        <div class="skills-row"><strong>Matched required skills:</strong> {{ result.match.matched_required | join(", ") if result.match.matched_required else "None" }}</div>
+        <div class="skills-row"><strong>Missing required skills:</strong> {{ result.match.missing_required | join(", ") if result.match.missing_required else "None" }}</div>
+        <div class="skills-row"><strong>Matched nice-to-haves:</strong> {{ result.match.matched_nice_to_have | join(", ") if result.match.matched_nice_to_have else "None" }}</div>
+        <div class ="verditc">{{  result.verdict  }}</div>
+      {% if result.resources %}
+            <h3>Resources to close your skill gaps</h3>
+            {% for skill, res in result.resources.items() %}
+                <div class="resource-block">
+                    <h4>{{ skill }}</h4>
+                    {% if res.note %}
+                        <p>{{ res.note }}</p>
+                    {% else %}
+                        <p><strong>UNC Course:</strong> {{ res.unc_course }}</p>
+                        <p><strong>Prerequisite:</strong> {{ res.unc_prerequisite }}</p>
+                        <p><strong>YouTube:</strong> {{ res.youtube }}</p>
+                        <p><strong>Coursera:</strong> {{ res.coursera }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="disclaimer">{{ result.disclaimer }}</div>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
