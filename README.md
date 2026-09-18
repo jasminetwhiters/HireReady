@@ -1,8 +1,8 @@
 # HireReady
- This is an AI integrated full-stack web app to be used by computer students at UNC. 
- **Computer Science, Software Engineering, and Computer Information Systems programs.** 
+ This is an AI integrated full-stack web app to be used by computer students at University of Northern Colorado. 
+ **For Computer Science, Software Engineering, and Computer Information Systems programs.** 
  **Anthropic API key needed**
- 
+
  It compares a resume against a job posting. It then scores the technical fit and recommends real learning resources to "close the gap". These resources include: verfied UNC computer courses, Youtube tutorials, and Coursera courses - for any of the skill gaps found.
  This is a learning project to explore LLM API integration, prompt engineering, and full-stack Python web development.
 
@@ -64,3 +64,5 @@ HireReady requires an Anthropic API key to perform AI-powered resume and job pos
 
 ex. ANTHROPIC_API_KEY=your-api-key-here
 ## Never commit your .env file or expose your API key publicly.
+## Possible Future Work
+- Support additional universities by making the course-catalog search domain configurable, rather than hardcoded to UNC
