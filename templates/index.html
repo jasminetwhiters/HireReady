@@ -3,48 +3,490 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>HireReady</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef6ff, #f8fbff);
+            color: #1f2937;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #1463c3;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .header h1 span {
+            color: #1d4ed8;
+        }
+
+        .header p {
+            font-size: 17px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .tagline {
+            font-weight: 600;
+            color: #2563eb !important;
+        }
+
+        /* Main Card */
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 10px 35px rgba(37, 99, 235, 0.10);
+            border: 1px solid #dbeafe;
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        /* Form */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 280px;
+            padding: 16px;
+            border: 2px solid #dbeafe;
+            border-radius: 12px;
+            resize: vertical;
+            font-size: 15px;
+            font-family: inherit;
+            line-height: 1.5;
+            color: #1f2937;
+            background: #f8fbff;
+            transition: all 0.2s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.10);
+        }
+
+        textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Button */
+        button {
+            margin-top: 5px;
+            padding: 15px 24px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Error */
+        .error {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Results */
+        .results {
+            margin-top: 30px;
+        }
+
+        .results-title {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        /* Score */
+        .score-card {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border: 1px solid #bfdbfe;
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .score-label {
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .score {
+            font-size: 64px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        .score-max {
+            font-size: 22px;
+            color: #64748b;
+        }
+
+        /* Skills */
+        .skills-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .skill-card {
+            background: #f8fbff;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .skill-card strong {
+            display: block;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .skill-card p {
+            color: #64748b;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* Verdict */
+        .verdict {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 18px;
+            border-radius: 8px;
+            color: #1e3a8a;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        /* Resources */
+        .resources-title {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+
+        .resource-block {
+            background: white;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.06);
+        }
+
+        .resource-block h4 {
+            font-size: 18px;
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .resource-block p {
+            margin-bottom: 8px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        .resource-block strong {
+            color: #1e3a8a;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        /* Mobile */
+        @media (max-width: 700px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 38px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .skills-section {
+                grid-template-columns: 1fr;
+            }
+
+            .score {
+                font-size: 52px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1 HireReady </h1>
-    <p>Paste your resume and a job posting below to see your fit score and skill gaps.</p>
-    <p>Lets make you hireReady.</p>
 
-    {% if error %}
-        <div class ="error">{{  error  }}</div>
-    {% endif %}
+<div class="container">
 
-    <form method = "POST">
-        <label for="resume_text">Your Resume</label>
-        <textarea id="resume_text" name="resume_text" placeholder="Paste your resume text here...">{{  resume_text  }}</textarea>
-    
-        <button type="submit">Analyze Fit</button>
-    </form>
+    <!-- Header -->
+    <div class="header">
+        <h1>Hire<span>Ready</span></h1>
 
+        <p>Analyze your resume against a job posting and discover your skill gaps.</p>
+
+        <p class="tagline">Let's make you HireReady.</p>
+    </div>
+
+
+    <!-- Main Input Card -->
+    <div class="card">
+
+        <h2>Resume Analyzer</h2>
+
+        <p class="card-description">
+            Paste your resume and the job posting below to see your fit score, matched skills, and areas to improve.
+        </p>
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+
+            <label for="resume_text">Your Resume</label>
+
+            <textarea
+                id="resume_text"
+                name="resume_text"
+                placeholder="Paste your resume text here..."
+            >{{ resume_text }}</textarea>
+
+            <label for="job_text">Job Posting</label>
+
+            <textarea
+                id="job_text"
+                name="job_text"
+                placeholder="Paste the job posting text here..."
+            >{{ job_text }}</textarea>
+
+            <button type="submit">
+                Analyze Fit
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Results -->
     {% if result %}
-        <hr style="margin: 30px 0;">
-        <div class ="score">{{  result.match.total_score  }}/100</div>
-        <div class="skills-row"><strong>Matched required skills:</strong> {{ result.match.matched_required | join(", ") if result.match.matched_required else "None" }}</div>
-        <div class="skills-row"><strong>Missing required skills:</strong> {{ result.match.missing_required | join(", ") if result.match.missing_required else "None" }}</div>
-        <div class="skills-row"><strong>Matched nice-to-haves:</strong> {{ result.match.matched_nice_to_have | join(", ") if result.match.matched_nice_to_have else "None" }}</div>
-        <div class ="verditc">{{  result.verdict  }}</div>
-      {% if result.resources %}
-            <h3>Resources to close your skill gaps</h3>
+
+    <div class="card results">
+
+        <h2 class="results-title">Your Results</h2>
+
+
+        <!-- Score -->
+        <div class="score-card">
+
+            <div class="score-label">
+                Technical Fit Score
+            </div>
+
+            <div class="score">
+                {{ result.match.total_score }}
+                <span class="score-max">/100</span>
+            </div>
+
+        </div>
+
+
+        <!-- Skills -->
+        <div class="skills-section">
+
+            <div class="skill-card">
+                <strong>Matched Required Skills</strong>
+
+                <p>
+                    {{ result.match.matched_required | join(", ")
+                    if result.match.matched_required
+                    else "None" }}
+                </p>
+            </div>
+
+
+            <div class="skill-card">
+                <strong>Missing Required Skills</strong>
+
+                <p>
+                    {{ result.match.missing_required | join(", ")
+                    if result.match.missing_required
+                    else "None" }}
+                </p>
+            </div>
+
+
+            <div class="skill-card">
+                <strong>Matched Nice-to-Haves</strong>
+
+                <p>
+                    {{ result.match.matched_nice_to_have | join(", ")
+                    if result.match.matched_nice_to_have
+                    else "None" }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Verdict -->
+        <div class="verdict">
+            {{ result.verdict }}
+        </div>
+
+
+        <!-- Resources -->
+        {% if result.resources %}
+
+            <h3 class="resources-title">
+                Resources to Close Your Skill Gaps
+            </h3>
+
             {% for skill, res in result.resources.items() %}
+
                 <div class="resource-block">
+
                     <h4>{{ skill }}</h4>
+
                     {% if res.note %}
                         <p>{{ res.note }}</p>
-                    {% else %}
-                        <p><strong>UNC Course:</strong> {{ res.unc_course }}</p>
-                        <p><strong>Prerequisite:</strong> {{ res.unc_prerequisite }}</p>
-                        <p><strong>YouTube:</strong> {{ res.youtube }}</p>
-                        <p><strong>Coursera:</strong> {{ res.coursera }}</p>
                     {% endif %}
+
+                    {% if res.unc_course %}
+                        <p>
+                            <strong>UNC Course:</strong>
+                            {{ res.unc_course }}
+                        </p>
+
+                        <p>
+                            <strong>Prerequisite:</strong>
+                            {{ res.unc_prerequisite }}
+                        </p>
+
+                        <p>
+                            <strong>YouTube:</strong>
+                            {{ res.youtube }}
+                        </p>
+
+                        <p>
+                            <strong>Coursera:</strong>
+                            {{ res.coursera }}
+                        </p>
+                    {% endif %}
+
                 </div>
+
             {% endfor %}
-            <div class="disclaimer">{{ result.disclaimer }}</div>
+
+
+            <div class="disclaimer">
+                {{ result.disclaimer }}
+            </div>
+
         {% endif %}
+
+    </div>
+
     {% endif %}
+
+
+    <!-- Footer -->
+    <div class="footer">
+        HireReady &nbsp;•&nbsp; Resume & Job Skill Analysis
+    </div>
+
+</div>
+
 </body>
 </html>
